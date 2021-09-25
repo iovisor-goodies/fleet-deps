@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ngnix-pod
+  labels:
+    k8s-app: my-nginx
+    type: nginx1
+spec:
+  selector:
+    matchLabels:
+      name: my-nginx
+  template:
+    metadata:
+      labels:
+        name: my-nginx
+    spec:
+      hostNetwork: true
+      containers:
+        - name: my-nginx
+          image: nginx
+          ports:
+            - name: my-nginx
+              containerPort: 8080
+              hostPort: 8080
+              protocol: TCP
+
