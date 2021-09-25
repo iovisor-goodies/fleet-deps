@@ -1,25 +1,27 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: ngnix-pod
+  name: flask-pod
   labels:
-    k8s-app: my-nginx
-    type: nginx1
+    k8s-app: my-flask
+    type: flask1
 spec:
   selector:
     matchLabels:
-      name: my-nginx
+      name: my-flask
   template:
     metadata:
       labels:
-        name: my-nginx
+        name: my-flask
     spec:
       hostNetwork: true
       containers:
-        - name: my-nginx
-          image: nginx
+        - name: my-flask
+          image: rasp-flask2
+          imagePullPolicy: Never
+          command: [ "bash", "/usr/local/bin/start"]
           ports:
-            - name: my-nginx
+            - name: my-flask
               containerPort: 8080
               hostPort: 8080
               protocol: TCP
